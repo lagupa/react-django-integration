@@ -54,3 +54,58 @@ in your settings.json file
 - In djreact\backend\djreact 
     - Run `python manage.py migrate` to apply migrations
     - Run `python manage.py runserver` here you should see python site runing on http://127.0.0.1:8000/  or  http://localhost:8000/
+
+## Creating Python App
+- In djreact\backend\djreact, create python app, run `python manage.py startapp article`
+- Add `article` and `restframework` to the djreact\backend\djreact\settings.py 
+    ```py
+    INSTALLED_APPS = [
+        ...
+        'rest_framework',
+        'article',
+        ...
+    ]
+
+    REST_FRAMEWORK = {
+        # Use Django's standard `django.contrib.auth` permissions,
+        # or allow read-only access for unauthenticated users.
+        'DEFAULT_PERMISSION_CLASSES': [
+            'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+        ]
+    }
+    ```
+    and in ulrs.py in djreact\backend\djreact\ulrs.py
+
+    ```py
+    urlpatterns = [
+        ...
+        path('api-auth/', include('rest_framework.urls'))
+        ...
+    ]
+    ```
+
+### Creating Django Models 
+
+- add to djreact\backend\djreact\article\models.py
+    ```py
+    class Article(models.Model):
+    title = models.CharField(max_length=120)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title
+    ```
+- In djreact\backend\djreact run `python manage.py makemigrations` followed by `python manage.py migrate`
+
+### Register the Article in Django Admin,
+
+- In djreact\backend\djreact\article\admin.py
+add 
+```py
+from .models import Article
+admin.site.register(Article)
+
+```
+- Create superuser run `python manage.py createsuperuser`
+
+- use superuser to create some article in django admin
