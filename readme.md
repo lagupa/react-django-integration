@@ -44,3 +44,13 @@ or you can also combine all of them at once like this
     "python.linting.pylintEnabled": true }
     ``` 
 in your settings.json file
+
+
+# Setting React Project 
+- In djreact\frontend, run `npx create-react-app gui`, make sure you have the latest node js install in your machine.
+
+## Running Back and Front End Servers
+- In djreact\frontend, `cd gui\` and run `npm start`, here you should see react app running on  http://localhost:3000/
+- In djreact\backend\djreact 
+    - Run `python manage.py migrate` to apply migrations
+    - Run `python manage.py runserver` here you should see python site runing on http://127.0.0.1:8000/  or  http://localhost:8000/
